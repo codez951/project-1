@@ -24,6 +24,14 @@ func _process(delta: float) -> void:
 	if movement_direction.length() > 0:
 		velocity = movement_direction.normalized() * speed
 		$AnimatedSprite2D.play()
+		if velocity.x != 0:
+			$AnimatedSprite2D.animation = "walk"
+			$AnimatedSprite2D.flip_v = false
+			# See the note below about the following boolean assignment.
+			$AnimatedSprite2D.flip_h = velocity.x < 0
+		elif velocity.y != 0:
+			$AnimatedSprite2D.animation = "up"
+			$AnimatedSprite2D.flip_v = velocity.y > 0
 	else:
 		$AnimatedSprite2D.stop()
 	
