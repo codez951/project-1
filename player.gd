@@ -7,7 +7,25 @@ var screen_size
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	var movement_direction = Vector2.ZERO
+	if Input.is_action_pressed("move_up"):
+		movement_direction += Vector2(0, -1)
+	if Input.is_action_pressed("move_down"):
+		movement_direction += Vector2(0, 1)
+	if Input.is_action_pressed("move_right"):
+		movement_direction += Vector2(1, 0)
+	if Input.is_action_pressed("move_left"):
+		movement_direction += Vector2(-1, 0)
+
+	var velocity = Vector2.ZERO
+	
+	if movement_direction.length() > 0:
+		velocity = movement_direction.normalized() * speed
+		$AnimatedSprite2D.play()
+	else:
+		$AnimatedSprite2D.stop()
+	
+	position += velocity * delta
+	position = position.clamp(Vector2.ZERO, screen_size)
