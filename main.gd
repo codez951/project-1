@@ -8,7 +8,6 @@ func _ready():
 
 
 func game_over():
-	print("game over lil bro")
 	$ScoreTimer.stop()
 	$MobTimer.stop()
 	$HUD.show_game_over()
